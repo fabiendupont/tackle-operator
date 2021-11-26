@@ -1,0 +1,121 @@
+---
+app_name: "{{ lookup('env', 'APP_NAME') or 'tackle' }}"
+app_namespace: "{{ lookup('env', 'WATCH_NAMESPACE') or 'tackle-operator-system' }}"
+
+# Feature defaults
+feature_ui_enabled: true
+feature_auth_enabled: true
+feature_auth_provider: "keycloak"
+
+openshift_cluster: false
+image_pull_policy: "Always"
+tackle_operator_version: "latest"
+tackle_resources:
+  - "Deployment"
+  - "ConfigMap"
+  - "Secret"
+  - "Route"
+
+hub_api_image_fqin: "{{ lookup('env', 'TACKLE_HUB_API_IMAGE') or 'quay.io/fabiendupont/tackle-hub:latest' }}"
+hub_api_name: "hub"
+hub_api_component_name: "api"
+hub_api_service_name: "{{ app_name }}-{{ hub_api_name }}-{{ hub_api_component_name }}"
+hub_api_configmap_name: "{{ hub_api_service_name }}-config"
+hub_api_deployment_name: "{{ hub_api_service_name }}"
+hub_api_container_name: "{{ hub_api_service_name }}"
+hub_api_container_limits_cpu: "500m"
+hub_api_container_limits_memory: "800Mi"
+hub_api_container_requests_cpu: "100m"
+hub_api_container_requests_memory: "350Mi"
+hub_api_data_volume_name: "{{ hub_api_service_name }}-data"
+hub_api_data_volume_size: "1Gi"
+hub_api_data_volume_path: "/data"
+hub_api_data_volume_claim_name: "{{ hub_api_service_name }}-volume-claim"
+hub_api_tls_enabled: false
+hub_api_tls_secret_name: "{{ hub_api_service_name }}-serving-cert"
+hub_api_log_level: 3
+
+
+pathfinder_database_image_fqin: "{{ lookup('env', 'PATHFINDER_DATABASE_IMAGE') or 'quay.io/fabiendupont/postgres:10.6'}}"
+pathfinder_database_name: "pathfinder"
+pathfinder_database_component_name: "postgresql"
+pathfinder_database_service_name: "{{ app_name }}-{{ pathfinder_database_name }}-{{ pathfinder_database_component_name }}"
+pathfinder_database_secret_name: "{{ pathfinder_database_service_name }}"
+pathfinder_database_deployment_name: "{{ pathfinder_database_service_name }}"
+pathfinder_database_container_name: "{{ pathfinder_database_service_name }}"
+pathfinder_database_container_limits_cpu: "500m"
+pathfinder_database_container_limits_memory: "800Mi"
+pathfinder_database_container_requests_cpu: "100m"
+pathfinder_database_container_requests_memory: "350Mi"
+pathfinder_database_data_volume_name: "{{ pathfinder_database_service_name }}-database"
+pathfinder_database_data_volume_size: "1Gi"
+pathfinder_database_data_volume_path: "/var/lib/postgresql"
+pathfinder_database_data_volume_claim_name: "{{ pathfinder_database_service_name }}-volume-claim"
+pathfinder_database_db_name: "pathfinder_db"
+pathfinder_database_db_name_b64: "{{ pathfinder_database_db_name | b64encode }}"
+
+pathfinder_api_image_fqin: "{{ lookup('env', 'PATHFINDER_API_IMAGE') or 'quay.io/konveyor/tackle-pathfinder:1.1.0-native' }}"
+pathfinder_api_name: "pathfinder"
+pathfinder_api_component_name: "api"
+pathfinder_api_service_name: "{{ app_name }}-{{ pathfinder_api_name }}-{{ pathfinder_api_component_name }}"
+pathfinder_api_deployment_name: "{{ pathfinder_api_service_name }}"
+pathfinder_api_container_name: "{{ pathfinder_api_service_name }}"
+pathfinder_api_container_limits_cpu: "500m"
+pathfinder_api_container_limits_memory: "800Mi"
+pathfinder_api_container_requests_cpu: "100m"
+pathfinder_api_container_requests_memory: "350Mi"
+pathfinder_api_tls_enabled: false
+pathfinder_api_tls_secret_name: "{{ pathfinder_api_service_name }}-serving-cert"
+
+
+keycloak_database_image_fqin: "{{ lookup('env', 'KEYCLOAK_DATABASE_IMAGE') or 'quay.io/fabiendupont/postgres:10.6' }}"
+keycloak_database_name: "keycloak"
+keycloak_database_component_name: "postgresql"
+keycloak_database_service_name: "{{ app_name }}-{{ keycloak_database_name }}-{{ keycloak_database_component_name }}"
+keycloak_database_secret_name: "{{ keycloak_database_service_name }}"
+keycloak_database_deployment_name: "{{ keycloak_database_service_name }}"
+keycloak_database_container_name: "{{ keycloak_database_service_name }}"
+keycloak_database_container_limits_cpu: "500m"
+keycloak_database_container_limits_memory: "800Mi"
+keycloak_database_container_requests_cpu: "100m"
+keycloak_database_container_requests_memory: "350Mi"
+keycloak_database_data_volume_name: "{{ keycloak_database_service_name }}-database"
+keycloak_database_data_volume_size: "1Gi"
+keycloak_database_data_volume_path: "/var/lib/postgresql"
+keycloak_database_data_volume_claim_name: "{{ keycloak_database_service_name }}-volume-claim"
+keycloak_database_db_name: "keycloak_db"
+keycloak_database_db_name_b64: "{{ keycloak_database_db_name | b64encode }}"
+
+keycloak_sso_image_fqin: "{{ lookup('env', 'KEYCLOAK_SSO_IMAGE') or 'quay.io/keycloak/keycloak:12.0.4' }}"
+keycloak_sso_name: "keycloak"
+keycloak_sso_component_name: "sso"
+keycloak_sso_service_name: "{{ app_name }}-{{ keycloak_sso_name }}-{{ keycloak_sso_component_name }}"
+keycloak_sso_configmap_name: "{{ keycloak_sso_service_name }}"
+keycloak_sso_secret_name: "{{ keycloak_sso_service_name }}"
+keycloak_sso_deployment_name: "{{ keycloak_sso_service_name }}"
+keycloak_sso_container_name: "{{ keycloak_sso_service_name }}"
+keycloak_sso_container_limits_cpu: "500m"
+keycloak_sso_container_limits_memory: "800Mi"
+keycloak_sso_container_requests_cpu: "100m"
+keycloak_sso_container_requests_memory: "350Mi"
+keycloak_sso_tls_enabled: false
+keycloak_sso_tls_secret_name: "{{ keycloak_sso_service_name }}-serving-cert"
+keycloak_sso_admin_username: "admin"
+keycloak_sso_admin_username_b64: "{{ keycloak_sso_admin_username | b64encode }}"
+
+
+ui_image_fqin: "{{ lookup('env', 'TACKLE_UI_IMAGE') or 'quay.io/konveyor/tackle-ui:1.1.0' }}"
+ui_component_name: "ui"
+ui_service_name: "{{ app_name }}-{{ ui_component_name }}"
+ui_configmap_name: "{{ ui_service_name }}-config"
+ui_deployment_name: "{{ ui_service_name }}"
+ui_ingress_name: "{{ app_name }}"
+ui_route_name: "{{ app_name }}"
+ui_container_name: "{{ ui_service_name }}"
+ui_container_limits_cpu: "500m"
+ui_container_limits_memory: "800Mi"
+ui_container_requests_cpu: "100m"
+ui_container_requests_memory: "350Mi"
+ui_tls_enabled: false
+ui_tls_secret_name: "{{ ui_service_name }}-serving-cert"
+

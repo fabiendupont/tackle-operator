@@ -1,0 +1,89 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ hub_api_deployment_name }}
+  namespace: {{ app_namespace }}
+  labels:
+    app.kubernetes.io/name: {{ hub_api_service_name }}
+    app.kubernetes.io/component: {{ hub_api_component_name }}
+    app.kubernetes.io/part-of: {{ app_name }}
+  annotations:
+    app.openshift.io/connects-to: >-
+      [
+{% if feature_auth_enabled|bool and feature_auth_provider == 'keycloak' %}
+        { "apiVersion": "apps/v1", "kind": "Deployment", "name": "{{ keycloak_sso_deployment_name }}" }
+{% endif %}
+      ]
+
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ hub_api_service_name }}
+      app.kubernetes.io/component: {{ hub_api_component_name }}
+      app.kubernetes.io/part-of: {{ app_name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ hub_api_service_name }}
+        app.kubernetes.io/component: {{ hub_api_component_name }}
+        app.kubernetes.io/part-of: {{ app_name }}
+    spec:
+      containers:
+        - name: {{ hub_api_container_name }}
+          image: "{{ hub_api_image_fqin }}"
+          imagePullPolicy: "{{ image_pull_policy }}"
+          env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+{% if hub_api_tls_enabled|bool %}
+            - name: HUB_TLS_ENABLED
+              value: 'true'
+            - name: HUB_TLS_CERTIFICATE
+              value: "/var/run/secrets/{{ hub_api_tls_secret_name }}/tls.crt"
+            - name: HUB_TLS_KEY
+              value: "/var/run/secrets/{{ hub_api_tls_secret_name }}/tls.key"
+{% else %}
+            - name: HUB_TLS_ENABLED
+              value: 'false'
+{% endif %}
+            - name: TACKLE_HUB_DB_PATH
+              value: "{{ hub_api_data_volume_path }}"
+          ports:
+{% if hub_api_tls_enabled|bool %}
+            - containerPort: 8443
+{% else %}
+            - containerPort: 8080
+{% endif %}
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: "{{ hub_api_configmap_name }}"
+          resources:
+            limits:
+              cpu: {{ hub_api_container_limits_cpu }}
+              memory: {{ hub_api_container_limits_memory }}
+            requests:
+              cpu: {{ hub_api_container_requests_cpu }}
+              memory: {{ hub_api_container_requests_memory }}
+# TODO: Add liveness and readiness probes
+          volumeMounts:
+            - name: {{ hub_api_data_volume_name }}
+              mountPath: {{ hub_api_data_volume_path }}
+{% if hub_api_tls_enabled|bool %}
+            - name: {{ hub_api_tls_secret_name }}
+              mountPath: /var/run/secrets/{{ hub_api_tls_secret_name }}/tls.crt
+{% endif %}
+      volumes:
+        - name: {{ hub_api_data_volume_name }}
+          persistentVolumeClaim:
+            claimName: {{ hub_api_data_volume_claim_name }}
+{% if hub_api_tls_enabled|bool %}
+        - name: {{ hub_api_tls_secret_name }}
+          secret:
+            secretName: {{ hub_api_tls_secret_name }}
+            defaultMode: 420
+{% endif %}
