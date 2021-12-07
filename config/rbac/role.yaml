@@ -65,10 +65,10 @@ rules:
       - update
       - watch
   ##
-  ## Rules for tackle.io/v1alpha1, Kind: Tackle
+  ## Rules for tackle.konveyor.io/v1alpha1, Kind: Tackle
   ##
   - apiGroups:
-      - tackle.io
+      - tackle.konveyor.io
     resources:
       - tackles
       - tackles/status

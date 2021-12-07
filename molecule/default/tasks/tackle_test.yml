@@ -1,5 +1,5 @@
 ---
-- name: Create the tackle.io/v1alpha1.Tackle
+- name: Create the tackle.konveyor.io/v1alpha1.Tackle
   k8s:
     state: present
     namespace: '{{ namespace }}'

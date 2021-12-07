@@ -5,7 +5,7 @@ metadata:
   name: tackle-viewer-role
 rules:
 - apiGroups:
-  - tackle.io
+  - tackle.konveyor.io
   resources:
   - tackles
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - tackle.io
+  - tackle.konveyor.io
   resources:
   - tackles/status
   verbs:

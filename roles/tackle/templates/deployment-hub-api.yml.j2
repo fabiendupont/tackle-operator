@@ -34,7 +34,7 @@ spec:
           image: "{{ hub_api_image_fqin }}"
           imagePullPolicy: "{{ image_pull_policy }}"
           env:
-            - name: KUBERNETES_NAMESPACE
+            - name: NAMESPACE
               valueFrom:
                 fieldRef:
                   apiVersion: v1
@@ -46,11 +46,17 @@ spec:
               value: "/var/run/secrets/{{ hub_api_tls_secret_name }}/tls.crt"
             - name: HUB_TLS_KEY
               value: "/var/run/secrets/{{ hub_api_tls_secret_name }}/tls.key"
+            - name: HUB_BASE_URL
+              value: "https://{{ hub_api_service_name }}.{{ app_namespace }}.svc"
 {% else %}
             - name: HUB_TLS_ENABLED
               value: 'false'
+            - name: HUB_BASE_URL
+              value: "http://{{ hub_api_service_name }}.{{ app_namespace }}.svc"
 {% endif %}
-            - name: TACKLE_HUB_DB_PATH
+            - name: ADDON_SECRET_PATH
+              value: "/var/run/secrets/tackle-addon"
+            - name: DB_PATH
               value: "{{ hub_api_data_volume_path }}"
           ports:
 {% if hub_api_tls_enabled|bool %}
@@ -59,9 +65,6 @@ spec:
             - containerPort: 8080
 {% endif %}
               protocol: TCP
-          envFrom:
-            - configMapRef:
-                name: "{{ hub_api_configmap_name }}"
           resources:
             limits:
               cpu: {{ hub_api_container_limits_cpu }}

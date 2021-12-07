@@ -3,7 +3,7 @@
 # To re-generate a bundle for another specific version without changing the standard setup, you can:
 # - use the VERSION as arg of the bundle target (e.g make bundle VERSION=0.0.2)
 # - use environment variables to overwrite this value (e.g export VERSION=0.0.2)
-VERSION ?= 0.0.1
+VERSION ?= 1.99.0
 
 # CHANNELS define the bundle channels used in the bundle.
 # Add a new line here if you would like to change its default config. (E.g CHANNELS = "candidate,fast,stable")
@@ -28,8 +28,8 @@ BUNDLE_METADATA_OPTS ?= $(BUNDLE_CHANNELS) $(BUNDLE_DEFAULT_CHANNEL)
 # This variable is used to construct full image tags for bundle and catalog images.
 #
 # For example, running 'make bundle-build bundle-push catalog-build catalog-push' will build and push both
-# tackle.io/tackle-operator-bundle:$VERSION and tackle.io/tackle-operator-catalog:$VERSION.
-IMAGE_TAG_BASE ?= tackle.io/tackle-operator
+# tackle.konveyor.io/tackle-operator-bundle:$VERSION and tackle.konveyor.io/tackle-operator-catalog:$VERSION.
+IMAGE_TAG_BASE ?= tackle.konveyor.io/tackle-operator
 
 # BUNDLE_IMG defines the image:tag used for the bundle.
 # You can use it as an arg. (E.g make bundle-build BUNDLE_IMG=<some-registry>/<project-name-bundle>:<tag>)
@@ -37,6 +37,7 @@ BUNDLE_IMG ?= $(IMAGE_TAG_BASE)-bundle:v$(VERSION)
 
 # Image URL to use all building/pushing image targets
 #IMG ?= controller:latest
+#IMG ?= quay.io/konveyor/tackle-operator:latest
 IMG ?= quay.io/fabiendupont/tackle-operator:latest
 
 all: docker-build
