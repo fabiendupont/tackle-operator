@@ -1,0 +1,62 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ hub_api_seed_configmap_name }}
+  namespace: {{ app_namespace }}
+data:
+  jobfunction.json: |
+    [
+      { "id": 1, "role": "Business Analyst" },
+      { "id": 2, "role": "Business Service Owner / Manager" },
+      { "id": 3, "role": "Consultant" },
+      { "id": 4, "role": "DBA" },
+      { "id": 5, "role": "Developer / Software Engineer" },
+      { "id": 6, "role": "IT Operations" },
+      { "id": 7, "role": "Program Manager" },
+      { "id": 8, "role": "Project Manager" },
+      { "id": 9, "role": "Service Owner" },
+      { "id": 10, "role": "Solution Architect" },
+      { "id": 11, "role": "System Administrator" },
+      { "id": 12, "role": "Test Analyst / Manager" }
+    ]
+  tagtype.json: |
+    [
+      { "id": 1, "name": "Application Type", "rank": 6, "color": "#ec7a08" },
+      { "id": 2, "name": "Data Center", "rank": 5, "color": "#2b9af3" },
+      { "id": 3, "name": "Database", "rank": 4, "color": "#6ec664" },
+      { "id": 4, "name": "Language", "rank": 1, "color": "#009596" },
+      { "id": 5, "name": "Operating System", "rank": 2, "color": "#a18fff" },
+      { "id": 6, "name": "Runtime", "rank": 3, "color": "#7d1007" }
+    ]
+  tag.json: |
+    [
+      { "id": 1, "name": "COTS", "tagType": { "id": 1 }},
+      { "id": 2, "name": "In house", "tagType": { "id": 1 }},
+      { "id": 3, "name": "SaaS", "tagType": { "id": 1 }},
+      { "id": 4, "name": "Boston (USA)", "tagType": { "id": 2 }},
+      { "id": 5, "name": "London (UK)", "tagType": { "id": 2 }},
+      { "id": 6, "name": "Paris (FR)", "tagType": { "id": 2 }},
+      { "id": 7, "name": "Sydney (AU)", "tagType": { "id": 2 }},
+      { "id": 8, "name": "DB2", "tagType": { "id": 3 }},
+      { "id": 9, "name": "MongoDB", "tagType": { "id": 3 }},
+      { "id": 10, "name": "Oracle", "tagType": { "id": 3 }},
+      { "id": 11, "name": "PostgreSQL", "tagType": { "id": 3 }},
+      { "id": 12, "name": "SQL Server", "tagType": { "id": 3 }},
+      { "id": 13, "name": "C# ASP .Net", "tagType": { "id": 4 }},
+      { "id": 14, "name": "C++", "tagType": { "id": 4 }},
+      { "id": 15, "name": "COBOL", "tagType": { "id": 4 }},
+      { "id": 16, "name": "Java", "tagType": { "id": 4 }},
+      { "id": 17, "name": "Javascript", "tagType": { "id": 4 }},
+      { "id": 18, "name": "Python", "tagType": { "id": 4 }},
+      { "id": 19, "name": "RHEL 8", "tagType": { "id": 5 }},
+      { "id": 20, "name": "Windows Server 2016", "tagType": { "id": 5 }},
+      { "id": 21, "name": "Z/OS", "tagType": { "id": 5 }},
+      { "id": 22, "name": "EAP", "tagType": { "id": 6 }},
+      { "id": 23, "name": "JWS", "tagType": { "id": 6 }},
+      { "id": 24, "name": "Quarkus", "tagType": { "id": 6 }},
+      { "id": 25, "name": "Spring Boot", "tagType": { "id": 6 }},
+      { "id": 26, "name": "Tomcat", "tagType": { "id": 6 }},
+      { "id": 27, "name": "WebLogic", "tagType": { "id": 6 }},
+      { "id": 28, "name": "WebSphere", "tagType": { "id": 6 }}
+    ]

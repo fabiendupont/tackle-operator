@@ -121,6 +121,11 @@
       state: present
       definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api-bucket.yml.j2') }}"
 
+  - name: "Setup Tackle Hub Seed ConfigMap"
+    k8s:
+      state: present
+      definition: "{{ lookup('template', 'configmap-hub-api-seed.yml.j2') }}"
+
   - name: "Setup Tackle Hub API Service"
     k8s:
       state: present

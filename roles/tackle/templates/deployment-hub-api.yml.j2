@@ -63,6 +63,8 @@ spec:
               value: "{{ hub_api_bucket_volume_path }}"
             - name: BUCKET_PVC
               value: "{{ hub_api_bucket_volume_claim_name }}"
+            - name: DB_SEED_PATH
+              value: "{{ hub_api_seed_configmap_path }}"
           ports:
 {% if hub_api_tls_enabled|bool %}
             - containerPort: 8443
@@ -83,6 +85,9 @@ spec:
               mountPath: {{ hub_api_database_volume_path }}
             - name: {{ hub_api_bucket_volume_name }}
               mountPath: {{ hub_api_bucket_volume_path }}
+            - name: {{ hub_api_seed_configmap_name }}
+              mountPath: {{ hub_api_seed_configmap_path }}
+              readOnly: true
 {% if hub_api_tls_enabled|bool %}
             - name: {{ hub_api_tls_secret_name }}
               mountPath: /var/run/secrets/{{ hub_api_tls_secret_name }}/tls.crt
@@ -94,6 +99,9 @@ spec:
         - name: {{ hub_api_bucket_volume_name }}
           persistentVolumeClaim:
             claimName: {{ hub_api_bucket_volume_claim_name }}
+        - name: {{ hub_api_seed_configmap_name }}
+          configMap:
+            name: {{ hub_api_seed_configmap_name }}
 {% if hub_api_tls_enabled|bool %}
         - name: {{ hub_api_tls_secret_name }}
           secret:
