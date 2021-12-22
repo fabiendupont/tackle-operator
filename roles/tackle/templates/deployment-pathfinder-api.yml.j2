@@ -61,7 +61,7 @@ spec:
                   name: {{ pathfinder_database_secret_name }}
                   key: database-password
             - name: QUARKUS_OIDC_AUTH_SERVER_URL
-              value: http://{{ keycloak_sso_service_name }}:8080/auth/realms/{{ app_name }}
+              value: https://{{ keycloak_sso_service_name }}:8443/auth/realms/{{ app_name }}
           ports:
             - name: http
               containerPort: 8080
@@ -73,21 +73,21 @@ spec:
             requests:
               cpu: {{ pathfinder_api_container_requests_cpu }}
               memory: {{ pathfinder_api_container_requests_memory }}
-          livenessProbe:
-            httpGet:
-              path: /pathfinder/q/heatlh/live
-              port: 8080
-              scheme: HTTP
-            timeoutSeconds: 10
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /pathfinder/q/heatlh/ready
-              port: 8080
-              scheme: HTTP
-            timeoutSeconds: 10
-            periodSeconds: 30
-            successThreshold: 1
-            failureThreshold: 3
+#          livenessProbe:
+#            httpGet:
+#              path: /pathfinder/q/heatlh/live
+#              port: 8080
+#              scheme: HTTP
+#            timeoutSeconds: 10
+#            periodSeconds: 30
+#            successThreshold: 1
+#            failureThreshold: 3
+#          readinessProbe:
+#            httpGet:
+#              path: /pathfinder/q/heatlh/ready
+#              port: 8080
+#              scheme: HTTP
+#            timeoutSeconds: 10
+#            periodSeconds: 30
+#            successThreshold: 1
+#            failureThreshold: 3

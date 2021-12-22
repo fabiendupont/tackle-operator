@@ -16,6 +16,10 @@ spec:
       port: 8080
       targetPort: 8080
       protocol: TCP
+    - name: https
+      port: 8443
+      targetPort: 8443
+      protocol: TCP
   selector:
     app.kubernetes.io/name: {{ keycloak_sso_service_name }}
     app.kubernetes.io/component: {{ keycloak_sso_component_name }}

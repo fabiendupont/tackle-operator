@@ -111,10 +111,15 @@
           state: present
           definition: "{{ lookup('template', 'deployment-keycloak-sso.yml.j2') }}"
 
-  - name: "Setup Tackle Hub API PersistentVolumeClaim"
+  - name: "Setup Tackle Hub API Database PersistentVolumeClaim"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api.yml.j2') }}"
+      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api-database.yml.j2') }}"
+
+  - name: "Setup Tackle Hub API Bucket PersistentVolumeClaim"
+    k8s:
+      state: present
+      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api-bucket.yml.j2') }}"
 
   - name: "Setup Tackle Hub API Service"
     k8s:

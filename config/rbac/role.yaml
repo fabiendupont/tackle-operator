@@ -11,12 +11,25 @@ rules:
       - ""
     resources:
       - configmaps
+      - events
       - secrets
       - pods
       - pods/exec
       - pods/log
       - persistentvolumeclaims
       - services
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
     verbs:
       - create
       - delete
@@ -70,6 +83,9 @@ rules:
   - apiGroups:
       - tackle.konveyor.io
     resources:
+      - addons
+      - addons/status
+      - addons/finalizers
       - tackles
       - tackles/status
       - tackles/finalizers

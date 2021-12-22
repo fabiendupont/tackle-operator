@@ -29,6 +29,7 @@ spec:
         app.kubernetes.io/component: {{ hub_api_component_name }}
         app.kubernetes.io/part-of: {{ app_name }}
     spec:
+      serviceAccountName: {{ hub_api_serviceaccount_name }}
       containers:
         - name: {{ hub_api_container_name }}
           image: "{{ hub_api_image_fqin }}"
@@ -47,17 +48,21 @@ spec:
             - name: HUB_TLS_KEY
               value: "/var/run/secrets/{{ hub_api_tls_secret_name }}/tls.key"
             - name: HUB_BASE_URL
-              value: "https://{{ hub_api_service_name }}.{{ app_namespace }}.svc"
+              value: "https://{{ hub_api_service_name }}.{{ app_namespace }}.svc:8443"
 {% else %}
             - name: HUB_TLS_ENABLED
               value: 'false'
             - name: HUB_BASE_URL
-              value: "http://{{ hub_api_service_name }}.{{ app_namespace }}.svc"
+              value: "http://{{ hub_api_service_name }}.{{ app_namespace }}.svc:8080"
 {% endif %}
             - name: ADDON_SECRET_PATH
               value: "/var/run/secrets/tackle-addon"
             - name: DB_PATH
-              value: "{{ hub_api_data_volume_path }}"
+              value: "{{ hub_api_database_volume_path }}/{{ hub_api_database_filename }}"
+            - name: BUCKET_PATH
+              value: "{{ hub_api_bucket_volume_path }}"
+            - name: BUCKET_PVC
+              value: "{{ hub_api_bucket_volume_claim_name }}"
           ports:
 {% if hub_api_tls_enabled|bool %}
             - containerPort: 8443
@@ -74,16 +79,21 @@ spec:
               memory: {{ hub_api_container_requests_memory }}
 # TODO: Add liveness and readiness probes
           volumeMounts:
-            - name: {{ hub_api_data_volume_name }}
-              mountPath: {{ hub_api_data_volume_path }}
+            - name: {{ hub_api_database_volume_name }}
+              mountPath: {{ hub_api_database_volume_path }}
+            - name: {{ hub_api_bucket_volume_name }}
+              mountPath: {{ hub_api_bucket_volume_path }}
 {% if hub_api_tls_enabled|bool %}
             - name: {{ hub_api_tls_secret_name }}
               mountPath: /var/run/secrets/{{ hub_api_tls_secret_name }}/tls.crt
 {% endif %}
       volumes:
-        - name: {{ hub_api_data_volume_name }}
+        - name: {{ hub_api_database_volume_name }}
           persistentVolumeClaim:
-            claimName: {{ hub_api_data_volume_claim_name }}
+            claimName: {{ hub_api_database_volume_claim_name }}
+        - name: {{ hub_api_bucket_volume_name }}
+          persistentVolumeClaim:
+            claimName: {{ hub_api_bucket_volume_claim_name }}
 {% if hub_api_tls_enabled|bool %}
         - name: {{ hub_api_tls_secret_name }}
           secret:
