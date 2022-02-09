@@ -119,7 +119,7 @@ spec:
                   valueFrom:
                     fieldRef:
                       fieldPath: metadata.annotations['olm.targetNamespaces']
-                - name: TACKLE_HUB_API_IMAGE
+                - name: TACKLE_HUB_IMAGE
                   value: quay.io/jortel/tackle-hub:latest
                 - name: PATHFINDER_DATABASE_IMAGE
                   value: postgres:10

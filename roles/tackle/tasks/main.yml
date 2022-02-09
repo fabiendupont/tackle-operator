@@ -114,27 +114,27 @@
   - name: "Setup Tackle Hub API Database PersistentVolumeClaim"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api-database.yml.j2') }}"
+      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-database.yml.j2') }}"
 
   - name: "Setup Tackle Hub API Bucket PersistentVolumeClaim"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-api-bucket.yml.j2') }}"
+      definition: "{{ lookup('template', 'persistentvolumeclaim-hub-bucket.yml.j2') }}"
 
   - name: "Setup Tackle Hub Seed ConfigMap"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'configmap-hub-api-seed.yml.j2') }}"
+      definition: "{{ lookup('template', 'configmap-hub-seed.yml.j2') }}"
 
   - name: "Setup Tackle Hub API Service"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'service-hub-api.yml.j2') }}"
+      definition: "{{ lookup('template', 'service-hub.yml.j2') }}"
 
   - name: "Setup Tackle Hub API Deployment"
     k8s:
       state: present
-      definition: "{{ lookup('template', 'deployment-hub-api.yml.j2') }}"
+      definition: "{{ lookup('template', 'deployment-hub.yml.j2') }}"
 
   - name: "Setup PathFinder PostgreSQL PersistentVolume"
     k8s:
