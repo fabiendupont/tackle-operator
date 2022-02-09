@@ -14,3 +14,10 @@ spec:
   resources:
     requests:
       storage: {{ pathfinder_database_data_volume_size }}
+{% if pathfinder_database_data_volume_claim_storageclass is defined %}
+{% if pathfinder_database_data_volume_claim_storageclass|length %}
+  storageClassName: {{ pathfinder_database_data_volume_claim_storageclass }}
+{% else %}
+  storageClassName: ""
+{% endif %}
+{% endif %}

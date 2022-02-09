@@ -9,7 +9,8 @@ metadata:
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions: {}
-  description: Tackle helps you modernize your applications
+  description: The Konveyor Tackle Operator fully manages the deployment and life
+    cycle of Tackle on Kubernetes.
   displayName: Tackle Operator
   icon:
   - base64data: ""
@@ -33,10 +34,9 @@ spec:
   - name: Tackle Operator
     url: https://tackle-operator.domain
   maintainers:
-  - email: fdupont@redhat.com
-    name: Fabien Dupont
+  - email: openshift-operators@redhat.com'
+    name: '''Red Hat'
   maturity: alpha
   provider:
-    name: Konveyor
-    url: https://konveyor.io
+    name: Red Hat, Inc
   version: 0.0.0

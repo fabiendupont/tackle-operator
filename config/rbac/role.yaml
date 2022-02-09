@@ -10,26 +10,10 @@ rules:
   - apiGroups:
       - ""
     resources:
-      - configmaps
-      - events
       - secrets
       - pods
       - pods/exec
       - pods/log
-      - persistentvolumeclaims
-      - services
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - batch
-    resources:
-      - jobs
     verbs:
       - create
       - delete
@@ -53,39 +37,12 @@ rules:
       - patch
       - update
       - watch
-  - apiGroups:
-      - networking.k8s.io
-    resources:
-      - ingresses
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
-  - apiGroups:
-      - route.openshift.io
-    resources:
-      - routes
-    verbs:
-      - create
-      - delete
-      - get
-      - list
-      - patch
-      - update
-      - watch
   ##
   ## Rules for tackle.konveyor.io/v1alpha1, Kind: Tackle
   ##
   - apiGroups:
       - tackle.konveyor.io
     resources:
-      - addons
-      - addons/status
-      - addons/finalizers
       - tackles
       - tackles/status
       - tackles/finalizers

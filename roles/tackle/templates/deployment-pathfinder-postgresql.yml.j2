@@ -68,14 +68,14 @@ spec:
                 - /bin/sh
                 - '-c'
                 - 'psql -U $POSTGRES_USER -d $POSTGRES_DB -c ''SELECT 1'' '
-            initialDelaySeconds: 10
+            initialDelaySeconds: 5
             timeoutSeconds: 1
             periodSeconds: 10
             successThreshold: 1
             failureThreshold: 3
           volumeMounts:
             - name: {{ pathfinder_database_data_volume_name }}
-              mountPath: /var/lib/postgresql
+              mountPath: {{ pathfinder_database_data_volume_path }}
       volumes:
         - name: {{ pathfinder_database_data_volume_name }}
           persistentVolumeClaim:

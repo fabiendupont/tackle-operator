@@ -14,3 +14,10 @@ spec:
   resources:
     requests:
       storage: {{ hub_api_database_volume_size }}
+{% if hub_api_database_volume_claim_storageclass is defined %}
+{% if hub_api_database_volume_claim_storageclass|length %}
+  storageClassName: {{ hub_api_database_volume_claim_storageclass }}
+{% else %}
+  storageClassName: ""
+{% endif %}
+{% endif %}

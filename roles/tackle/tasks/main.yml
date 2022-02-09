@@ -64,7 +64,7 @@
           state: present
           definition: "{{ lookup('template', 'service-keycloak-postgresql.yml.j2') }}"
 
-      - name: "Setup Keycloak PostgreSQL Deployement"
+      - name: "Setup Keycloak PostgreSQL Deployment"
         k8s:
           state: present
           definition: "{{ lookup('template', 'deployment-keycloak-postgresql.yml.j2') }}"
@@ -106,7 +106,7 @@
           state: present
           definition: "{{ lookup('template', 'service-keycloak-sso.yml.j2') }}"
 
-      - name: "Setup Keycloak SSO Deployement"
+      - name: "Setup Keycloak SSO Deployment"
         k8s:
           state: present
           definition: "{{ lookup('template', 'deployment-keycloak-sso.yml.j2') }}"
@@ -131,7 +131,7 @@
       state: present
       definition: "{{ lookup('template', 'service-hub-api.yml.j2') }}"
 
-  - name: "Setup Tackle Hub API Deployement"
+  - name: "Setup Tackle Hub API Deployment"
     k8s:
       state: present
       definition: "{{ lookup('template', 'deployment-hub-api.yml.j2') }}"
@@ -171,7 +171,7 @@
       state: present
       definition: "{{ lookup('template', 'service-pathfinder-postgresql.yml.j2') }}"
 
-  - name: "Setup PathFinder PostgreSQL Deployement"
+  - name: "Setup PathFinder PostgreSQL Deployment"
     k8s:
       state: present
       definition: "{{ lookup('template', 'deployment-pathfinder-postgresql.yml.j2') }}"
@@ -181,7 +181,7 @@
       state: present
       definition: "{{ lookup('template', 'service-pathfinder-api.yml.j2') }}"
 
-  - name: "Setup PathFinder API Deployement"
+  - name: "Setup PathFinder API Deployment"
     k8s:
       state: present
       definition: "{{ lookup('template', 'deployment-pathfinder-api.yml.j2') }}"
@@ -193,7 +193,7 @@
           state: present
           definition: "{{ lookup('template', 'service-ui.yml.j2') }}"
 
-      - name: "Setup Tackle UI Deployement"
+      - name: "Setup Tackle UI Deployment"
         k8s:
           state: present
           definition: "{{ lookup('template', 'deployment-ui.yml.j2') }}"

@@ -73,21 +73,22 @@ spec:
             requests:
               cpu: {{ pathfinder_api_container_requests_cpu }}
               memory: {{ pathfinder_api_container_requests_memory }}
-#          livenessProbe:
-#            httpGet:
-#              path: /pathfinder/q/heatlh/live
-#              port: 8080
-#              scheme: HTTP
-#            timeoutSeconds: 10
-#            periodSeconds: 30
-#            successThreshold: 1
-#            failureThreshold: 3
-#          readinessProbe:
-#            httpGet:
-#              path: /pathfinder/q/heatlh/ready
-#              port: 8080
-#              scheme: HTTP
-#            timeoutSeconds: 10
-#            periodSeconds: 30
-#            successThreshold: 1
-#            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /pathfinder/q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /pathfinder/q/health/ready
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3

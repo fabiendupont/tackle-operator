@@ -10,7 +10,7 @@
       type: Successful
       status: "True"
   vars:
-    cr_file: '_v1alpha1_tackle.yaml'
+    cr_file: 'tackle_v1alpha1_tackle.yaml'
 
 - name: Add assertions here
   assert:

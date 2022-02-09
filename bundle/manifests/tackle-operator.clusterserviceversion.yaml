@@ -26,10 +26,10 @@ metadata:
         }
       ]
     capabilities: Seamless Upgrades
-    certified: false
-    support: Community
-    containerImage: quay.io/konveyor/tackle-operator:v1.99.0
-    olm.skipRange: '>=0.0.0 <1.99.0'
+    certified: "false"
+    support: Red Hat
+    containerImage: quay.io/konveyor/tackle-operator:latest
+    olm.skipRange: '>=0.0.0 <99.0.0'
     operatorframework.io/initialization-resource: |-
       {
         "apiVersion": "tackle.io/v1alpha1",
@@ -41,10 +41,10 @@ metadata:
         "spec": {}
       }
     operatorframework.io/suggested-namespace: tackle-operator
-    operators.operatorframework.io/builder: operator-sdk-v1.14.0+git
+    operators.operatorframework.io/builder: operator-sdk-v1.15.0+git
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
     repository: https://github.com/konveyor/tackle-operator
-  name: tackle-operator.v1.99.0
+  name: tackle-operator.v99.0.0
   namespace: tackle-operator
 spec:
   apiservicedefinitions: {}
@@ -121,15 +121,18 @@ spec:
                 - name: TACKLE_HUB_IMAGE
                   value: quay.io/konveyor/tackle-hub:latest
                 - name: PATHFINDER_DATABASE_IMAGE
-                  value: quay.io/konveyor/tackle-postgres:10.6
+                  value: postgres:10.6
                 - name: PATHFINDER_API_IMAGE
                   value: quay.io/konveyor/tackle-pathfinder:1.1.0-native
                 - name: KEYCLOAK_DATABASE_IMAGE
-                  value: quay.io/konveyor/tackle-postgres:10.6
+                  value: postgres:10.6
                 - name: KEYCLOAK_SSO_IMAGE
-                  value: quay.io/konveyor/tackle-keycloak:12.0.4
+                  value: quay.io/keycloak/keycloak:12.0.4
                 - name: TACKLE_UI_IMAGE
                   value: quay.io/konveyor/tackle-ui:1.1.0
+                name: tackle-operator
+                image: quay.io/fbladilo/tackle-operator:latest
+                imagePullPolicy: Always
                 livenessProbe:
                   httpGet:
                     path: /healthz
@@ -142,10 +145,17 @@ spec:
                     port: 6789
                   initialDelaySeconds: 5
                   periodSeconds: 10
-                image: quay.io/konveyor/tackle-operator:latest
-                imagePullPolicy: Always
-                name: forklift-operator
-                resources: {}
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 768Mi
+                  requests:
+                    cpu: 10m
+                    memory: 256Mi
+                securityContext:
+                  allowPrivilegeEscalation: false
+              securityContext:
+                runAsNonRoot: true
       permissions:
       - serviceAccountName: tackle-operator
         rules:
@@ -249,27 +259,26 @@ spec:
     type: AllNamespaces
   keywords:
   - modernization
+  maintainers:
+  - name: Red Hat
+    email: openshift-operators@redhat.com
+  maturity: beta
+  provider:
+    name: Red Hat, Inc
   links:
   - name: Konveyor Tackle Documentation
     url: https://tackle-docs.konveyor.io
   - name: Konveyor Tackle Operator
     url: https://github.com/konveyor/tackle-operator
-  maintainers:
-  - email: fdupont@redhat.com
-    name: Fabien Dupont
-  maturity: beta
-  provider:
-    name: Konveyor
-    url: https://konveyor.io
   relatedImages:
   - name: tackle-hub
     image: quay.io/konveyor/tackle-hub:latest
   - name: tackle-postgres
-    image: quay.io/konveyor/tackle-postgres:10.6
+    image: postgres:10.6
   - name: tackle-pathfinder
     image: quay.io/konveyor/tackle-pathfinder:1.1.0-native
   - name: tackle-keycloak
-    image: quay.io/konveyor/tackle-keycloak:12.0.4
+    image: quay.io/keycloak/keycloak:12.0.4
   - name: tackle-ui
     image: quay.io/konveyor/tackle-ui:1.1.0
-  version: 1.99.0
+  version: 99.0.0
