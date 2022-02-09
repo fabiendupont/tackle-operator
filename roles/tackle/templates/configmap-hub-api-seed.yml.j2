@@ -5,6 +5,13 @@ metadata:
   name: {{ hub_api_seed_configmap_name }}
   namespace: {{ app_namespace }}
 data:
+  setting.json: |
+    [
+      { "key": "git.insecure.enabled", "value": "false" },
+      { "key": "svn.insecure.enabled", "value": "false" },
+      { "key": "mvn.insecure.enabled", "value": "false" },
+      { "key": "mvn.dependencies.update.forced", "value": "false" }
+    ]
   jobfunction.json: |
     [
       { "id": 1, "role": "Business Analyst" },
@@ -31,32 +38,32 @@ data:
     ]
   tag.json: |
     [
-      { "id": 1, "name": "COTS", "tag_type_id": 1 },
-      { "id": 2, "name": "In house", "tag_type_id": 1 },
-      { "id": 3, "name": "SaaS", "tag_type_id": 1 },
-      { "id": 4, "name": "Boston (USA)", "tag_type_id": 2 },
-      { "id": 5, "name": "London (UK)", "tag_type_id": 2 },
-      { "id": 6, "name": "Paris (FR)", "tag_type_id": 2 },
-      { "id": 7, "name": "Sydney (AU)", "tag_type_id": 2 },
-      { "id": 8, "name": "DB2", "tag_type_id": 3 },
-      { "id": 9, "name": "MongoDB", "tag_type_id": 3 },
-      { "id": 10, "name": "Oracle", "tag_type_id": 3 },
-      { "id": 11, "name": "PostgreSQL", "tag_type_id": 3 },
-      { "id": 12, "name": "SQL Server", "tag_type_id": 3 },
-      { "id": 13, "name": "C# ASP .Net", "tag_type_id": 4 },
-      { "id": 14, "name": "C++", "tag_type_id": 4 },
-      { "id": 15, "name": "COBOL", "tag_type_id": 4 },
-      { "id": 16, "name": "Java", "tag_type_id": 4 },
-      { "id": 17, "name": "Javascript", "tag_type_id": 4 },
-      { "id": 18, "name": "Python", "tag_type_id": 4 },
-      { "id": 19, "name": "RHEL 8", "tag_type_id": 5 },
-      { "id": 20, "name": "Windows Server 2016", "tag_type_id": 5 },
-      { "id": 21, "name": "Z/OS", "tag_type_id": 5 },
-      { "id": 22, "name": "EAP", "tag_type_id": 6 },
-      { "id": 23, "name": "JWS", "tag_type_id": 6 },
-      { "id": 24, "name": "Quarkus", "tag_type_id": 6 },
-      { "id": 25, "name": "Spring Boot", "tag_type_id": 6 },
-      { "id": 26, "name": "Tomcat", "tag_type_id": 6 },
-      { "id": 27, "name": "WebLogic", "tag_ype_id": 6 },
-      { "id": 28, "name": "WebSphere", "tag_type_id": 6 }
+      { "id": 1, "name": "COTS", "tagtypeid": 1 },
+      { "id": 2, "name": "In house", "tagtypeid": 1 },
+      { "id": 3, "name": "SaaS", "tagtypeid": 1 },
+      { "id": 4, "name": "Boston (USA)", "tagtypeid": 2 },
+      { "id": 5, "name": "London (UK)", "tagtypeid": 2 },
+      { "id": 6, "name": "Paris (FR)", "tagtypeid": 2 },
+      { "id": 7, "name": "Sydney (AU)", "tagtypeid": 2 },
+      { "id": 8, "name": "DB2", "tagtypeid": 3 },
+      { "id": 9, "name": "MongoDB", "tagtypeid": 3 },
+      { "id": 10, "name": "Oracle", "tagtypeid": 3 },
+      { "id": 11, "name": "PostgreSQL", "tagtypeid": 3 },
+      { "id": 12, "name": "SQL Server", "tagtypeid": 3 },
+      { "id": 13, "name": "C# ASP .Net", "tagtypeid": 4 },
+      { "id": 14, "name": "C++", "tagtypeid": 4 },
+      { "id": 15, "name": "COBOL", "tagtypeid": 4 },
+      { "id": 16, "name": "Java", "tagtypeid": 4 },
+      { "id": 17, "name": "Javascript", "tagtypeid": 4 },
+      { "id": 18, "name": "Python", "tagtypeid": 4 },
+      { "id": 19, "name": "RHEL 8", "tagtypeid": 5 },
+      { "id": 20, "name": "Windows Server 2016", "tagtypeid": 5 },
+      { "id": 21, "name": "Z/OS", "tagtypeid": 5 },
+      { "id": 22, "name": "EAP", "tagtypeid": 6 },
+      { "id": 23, "name": "JWS", "tagtypeid": 6 },
+      { "id": 24, "name": "Quarkus", "tagtypeid": 6 },
+      { "id": 25, "name": "Spring Boot", "tagtypeid": 6 },
+      { "id": 26, "name": "Tomcat", "tagtypeid": 6 },
+      { "id": 27, "name": "WebLogic", "tagtypeid": 6 },
+      { "id": 28, "name": "WebSphere", "tagtypeid": 6 }
     ]
