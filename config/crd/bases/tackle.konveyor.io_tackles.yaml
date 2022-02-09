@@ -10,8 +10,6 @@ spec:
     listKind: TackleList
     plural: tackles
     singular: tackle
-    shortNames:
-      - ta
   scope: Namespaced
   versions:
   - name: v1alpha1
