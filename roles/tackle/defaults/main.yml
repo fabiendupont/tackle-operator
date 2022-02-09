@@ -1,6 +1,6 @@
 ---
 app_name: "{{ lookup('env', 'APP_NAME') or 'tackle' }}"
-app_namespace: "{{ lookup('env', 'WATCH_NAMESPACE') or 'tackle-operator' }}"
+app_namespace: "{{ lookup('env', 'WATCH_NAMESPACE') or 'konveyor-tackle' }}"
 
 # Feature defaults
 feature_ui_enabled: true

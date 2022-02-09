@@ -9,7 +9,7 @@ metadata:
           "kind": "Tackle",
           "metadata": {
             "name": "tackle",
-            "namespace": "tackle-operator"
+            "namespace": "konveyor-tackle"
           },
           "spec": {}
         },
@@ -18,7 +18,7 @@ metadata:
           "kind": "Addon",
           "metadata": {
             "name": "move2kube-plan",
-            "namespace": "tackle-operator"
+            "namespace": "konveyor-tackle"
           },
           "spec": {
             "image": "quay.io/konveyor/tackle-addon-move2kube-plan:latest"
@@ -36,16 +36,16 @@ metadata:
         "kind": "Tackle",
         "metadata": {
           "name": "tackle",
-          "namespace": "tackle-operator"
+          "namespace": "konveyor-tackle"
         },
         "spec": {}
       }
-    operatorframework.io/suggested-namespace: tackle-operator
+    operatorframework.io/suggested-namespace: konveyor-tackle
     operators.operatorframework.io/builder: operator-sdk-v1.15.0+git
     operators.operatorframework.io/project_layout: ansible.sdk.operatorframework.io/v1
     repository: https://github.com/konveyor/tackle-operator
   name: tackle-operator.v99.0.0
-  namespace: tackle-operator
+  namespace: konveyor-tackle
 spec:
   apiservicedefinitions: {}
   customresourcedefinitions:

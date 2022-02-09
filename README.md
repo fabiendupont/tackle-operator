@@ -29,6 +29,6 @@ Custom settings can be applied by editing the `Tackle` CR.
 
 `oc edit tackle -n <tackle-namespace>`
 
-## Forklift Documentation
+## Tackle Documentation
 
 See the [Konveyor Tackle Documentation](https://tackle-docs.konveyor.io/) for detailed installation instructions as well as how to use Konveyor Tackle.
