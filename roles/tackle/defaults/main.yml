@@ -16,7 +16,7 @@ tackle_resources:
   - "Secret"
   - "Route"
 
-hub_api_image_fqin: "{{ lookup('env', 'TACKLE_HUB_API_IMAGE') or 'quay.io/fabiendupont/tackle-hub:latest' }}"
+hub_api_image_fqin: "{{ lookup('env', 'TACKLE_HUB_API_IMAGE') }}"
 hub_api_name: "hub"
 hub_api_component_name: "api"
 hub_api_service_name: "{{ app_name }}-{{ hub_api_name }}-{{ hub_api_component_name }}"
@@ -44,7 +44,7 @@ hub_api_tls_secret_name: "{{ hub_api_service_name }}-serving-cert"
 hub_api_log_level: 3
 
 
-pathfinder_database_image_fqin: "{{ lookup('env', 'PATHFINDER_DATABASE_IMAGE') or 'quay.io/fabiendupont/postgres:10.6'}}"
+pathfinder_database_image_fqin: "{{ lookup('env', 'PATHFINDER_DATABASE_IMAGE') }}"
 pathfinder_database_name: "pathfinder"
 pathfinder_database_component_name: "postgresql"
 pathfinder_database_service_name: "{{ app_name }}-{{ pathfinder_database_name }}-{{ pathfinder_database_component_name }}"
@@ -62,7 +62,7 @@ pathfinder_database_data_volume_claim_name: "{{ pathfinder_database_service_name
 pathfinder_database_db_name: "pathfinder_db"
 pathfinder_database_db_name_b64: "{{ pathfinder_database_db_name | b64encode }}"
 
-pathfinder_api_image_fqin: "{{ lookup('env', 'PATHFINDER_API_IMAGE') or 'quay.io/konveyor/tackle-pathfinder:1.1.0-native' }}"
+pathfinder_api_image_fqin: "{{ lookup('env', 'PATHFINDER_API_IMAGE') }}"
 pathfinder_api_name: "pathfinder"
 pathfinder_api_component_name: "api"
 pathfinder_api_service_name: "{{ app_name }}-{{ pathfinder_api_name }}-{{ pathfinder_api_component_name }}"
@@ -76,7 +76,7 @@ pathfinder_api_tls_enabled: false
 pathfinder_api_tls_secret_name: "{{ pathfinder_api_service_name }}-serving-cert"
 
 
-keycloak_database_image_fqin: "{{ lookup('env', 'KEYCLOAK_DATABASE_IMAGE') or 'quay.io/fabiendupont/postgres:10.6' }}"
+keycloak_database_image_fqin: "{{ lookup('env', 'KEYCLOAK_DATABASE_IMAGE') }}"
 keycloak_database_name: "keycloak"
 keycloak_database_component_name: "postgresql"
 keycloak_database_service_name: "{{ app_name }}-{{ keycloak_database_name }}-{{ keycloak_database_component_name }}"
@@ -94,7 +94,7 @@ keycloak_database_data_volume_claim_name: "{{ keycloak_database_service_name }}-
 keycloak_database_db_name: "keycloak_db"
 keycloak_database_db_name_b64: "{{ keycloak_database_db_name | b64encode }}"
 
-keycloak_sso_image_fqin: "{{ lookup('env', 'KEYCLOAK_SSO_IMAGE') or 'quay.io/keycloak/keycloak:12.0.4' }}"
+keycloak_sso_image_fqin: "{{ lookup('env', 'KEYCLOAK_SSO_IMAGE') }}"
 keycloak_sso_name: "keycloak"
 keycloak_sso_component_name: "sso"
 keycloak_sso_service_name: "{{ app_name }}-{{ keycloak_sso_name }}-{{ keycloak_sso_component_name }}"
@@ -112,7 +112,7 @@ keycloak_sso_admin_username: "admin"
 keycloak_sso_admin_username_b64: "{{ keycloak_sso_admin_username | b64encode }}"
 
 
-ui_image_fqin: "{{ lookup('env', 'TACKLE_UI_IMAGE') or 'quay.io/konveyor/tackle-ui:1.1.0' }}"
+ui_image_fqin: "{{ lookup('env', 'TACKLE_UI_IMAGE') }}"
 ui_component_name: "ui"
 ui_service_name: "{{ app_name }}-{{ ui_component_name }}"
 ui_configmap_name: "{{ ui_service_name }}-config"
