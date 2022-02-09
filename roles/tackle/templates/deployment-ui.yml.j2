@@ -11,7 +11,7 @@ metadata:
   annotations:
     app.openshift.io/connects-to: >-
       [
-        { "apiVersion": "apps/v1", "kind": "Deployment", "name": "{{ hub_api_deployment_name }}" },
+        { "apiVersion": "apps/v1", "kind": "Deployment", "name": "{{ hub_deployment_name }}" },
         { "apiVersion": "apps/v1", "kind": "Deployment", "name": "{{ pathfinder_api_deployment_name }}" },
 {% if feature_auth_enabled|bool and feature_auth_provider == 'keycloak' %}
         { "apiVersion": "apps/v1", "kind": "Deployment", "name": "{{ keycloak_sso_deployment_name }}" }
@@ -36,16 +36,16 @@ spec:
           imagePullPolicy: "{{ image_pull_policy }}"
           env:
             - name: CONTROLS_API_URL
-{% if hub_api_tls_enabled|bool %}
-              value: "https://{{ hub_api_service_name }}:8443"
+{% if hub_tls_enabled|bool %}
+              value: "https://{{ hub_service_name }}:8443"
 {% else %}
-              value: "http://{{ hub_api_service_name }}:8080"
+              value: "http://{{ hub_service_name }}:8080"
 {% endif %}
             - name: APPLICATION_INVENTORY_API_URL
-{% if hub_api_tls_enabled|bool %}
-              value: "https://{{ hub_api_service_name }}:8443"
+{% if hub_tls_enabled|bool %}
+              value: "https://{{ hub_service_name }}:8443"
 {% else %}
-              value: "http://{{ hub_api_service_name }}:8080"
+              value: "http://{{ hub_service_name }}:8080"
 {% endif %}
             - name: PATHFINDER_API_URL
 {% if pathfinder_api_tls_enabled|bool %}
