@@ -17,9 +17,8 @@ tackle_resources:
   - "Route"
 
 hub_image_fqin: "{{ lookup('env', 'TACKLE_HUB_IMAGE') }}"
-hub_name: "hub"
-hub_component_name: "api"
-hub_service_name: "{{ app_name }}-{{ hub_name }}"
+hub_component_name: "hub"
+hub_service_name: "{{ app_name }}-{{ hub_component_name }}"
 hub_serviceaccount_name: "{{ app_name }}-operator"
 hub_configmap_name: "{{ hub_service_name }}-config"
 hub_deployment_name: "{{ hub_service_name }}"
