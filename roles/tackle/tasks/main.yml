@@ -29,7 +29,7 @@
       - feature_auth_enabled|bool
       - feature_auth_provider == "keycloak"
     block:
-      - name: "Setup Keycloak PostgreSQL PersistentVolume"
+      - name: "Setup Keycloak PostgreSQL PersistentVolumeClaim"
         k8s:
           state: present
           definition: "{{ lookup('template', 'persistentvolumeclaim-keycloak-postgresql.yml.j2') }}"
@@ -125,6 +125,29 @@
     k8s:
       state: present
       definition: "{{ lookup('template', 'configmap-hub-seed.yml.j2') }}"
+
+  - name: "Check if Tackle Hub Secret exists already so we don't update it"
+    k8s_info:
+      api_version: v1
+      kind: Secret
+      name: "{{ hub_secret_name }}"
+      namespace: "{{ app_namespace }}"
+    register: hub_secret_status
+
+  - when: (hub_secret_status.resources | length) == 0
+    block:
+      - name: "Generate Tackle Hub random AES passphrase"
+        set_fact:
+          hub_aes_passphrase: "{{ lookup('password', '/dev/null chars=ascii_lowercase,ascii_uppercase,digits length=32') }}"
+
+      - name: "Encode Tackle Hub AES passphrase"
+        set_fact:
+          hub_aes_passphrase_b64: "{{ hub_aes_passphrase | b64encode }}"
+
+      - name: "Setup Tackle Hub Secret"
+        k8s:
+          state: present
+          definition: "{{ lookup('template', 'secret-hub.yml.j2') }}"
 
   - name: "Setup Tackle Hub API Service"
     k8s:
