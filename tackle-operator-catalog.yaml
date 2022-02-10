@@ -4,7 +4,7 @@ metadata:
   name: konveyor-tackle
   namespace: openshift-marketplace
 spec:
-  displayName: Konveyor Tackle Operator
-  publisher: Red Hat
+  displayName: Tackle Operator
+  publisher: Konveyor
   sourceType: grpc
   image: quay.io/fbladilo/tackle-operator-index:latest
