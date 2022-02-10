@@ -14,5 +14,5 @@ spec:
   to:
     kind: Service
     name: {{ ui_service_name }}
-    tls:
-      termination: edge
+  tls:
+    termination: {{ ui_route_tls_termination }}
