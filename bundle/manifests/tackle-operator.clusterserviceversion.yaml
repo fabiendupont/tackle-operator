@@ -307,3 +307,4 @@ spec:
   - name: tackle-ui
     image: quay.io/konveyor/tackle-ui:1.1.0
   version: 99.0.0
+  minKubeVersion: 1.20.0
